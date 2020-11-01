@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentAPI;
+using System.Collections.Generic;
 
 namespace DataAnnotations
 {
@@ -23,5 +24,7 @@ namespace DataAnnotations
         public int AuthorID { get; set; }
         public virtual Author Author { get; set; }
         public virtual ICollection<Tag> Tags { get; set; }
+
+        public Cover Cover { get; set; }
     }
 }

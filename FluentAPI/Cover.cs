@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FluentAPI
 {
-    class Cover
+    public class Cover
     {
         public int Id { get; set; }
 
