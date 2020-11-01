@@ -42,7 +42,14 @@ namespace DataAnnotations
                 .Entity<Course>()
                 .HasMany(c => c.Tags)
                 .WithMany(t => t.Courses)
-                .Map(m => m.ToTable("CourseTags"));
+                .Map(m =>
+                //here m is the many to many navigation property
+                {
+                    m.ToTable("CourseTags");
+                    m.MapLeftKey("CourseId");
+                    //our left is course because we started with Course
+                    m.MapRightKey("TagId");
+                });
 
             modelBuilder
                 .Entity<Course>()
