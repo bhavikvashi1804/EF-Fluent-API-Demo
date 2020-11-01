@@ -34,7 +34,8 @@ namespace DataAnnotations
                 //each author has many courses
                 .WithMany(a=>a.Courses)
                 //to configure the foreign key
-                .HasForeignKey(c=>c.AuthorID);
+                .HasForeignKey(c=>c.AuthorID)
+                .WillCascadeOnDelete(false);
 
 
 

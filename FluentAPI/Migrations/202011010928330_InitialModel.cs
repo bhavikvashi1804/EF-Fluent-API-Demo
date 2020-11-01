@@ -28,7 +28,7 @@ namespace FluentAPI.Migrations
                         AuthorID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Authors", t => t.AuthorID, cascadeDelete: true)
+                .ForeignKey("dbo.Authors", t => t.AuthorID)
                 .Index(t => t.AuthorID);
             
             CreateTable(
