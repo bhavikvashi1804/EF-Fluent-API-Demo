@@ -44,6 +44,11 @@ namespace DataAnnotations
                 .WithMany(t => t.Courses)
                 .Map(m => m.ToTable("CourseTags"));
 
+            modelBuilder
+                .Entity<Course>()
+                .HasRequired(c => c.Cover)
+                .WithRequiredPrincipal(c => c.Course);
+
 
             base.OnModelCreating(modelBuilder);
         }
