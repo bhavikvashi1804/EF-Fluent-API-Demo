@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using FluentAPI.Entity_Configuration;
+using System.Data.Entity;
 
 namespace DataAnnotations
 {
@@ -15,48 +16,8 @@ namespace DataAnnotations
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder
-                .Entity<Course>()
-                .Property(c => c.Name)
-                .IsRequired()
-                .HasMaxLength(255);
 
-            modelBuilder
-              .Entity<Course>()
-              .Property(c => c.Description)
-              .IsRequired()
-              .HasMaxLength(2000);
-
-            //each course has one author
-            modelBuilder
-                .Entity<Course>()
-                .HasRequired(c => c.Author)
-                //each author has many courses
-                .WithMany(a=>a.Courses)
-                //to configure the foreign key
-                .HasForeignKey(c=>c.AuthorID)
-                .WillCascadeOnDelete(false);
-
-            //we want our own name in Intermediatory class
-            modelBuilder
-                .Entity<Course>()
-                .HasMany(c => c.Tags)
-                .WithMany(t => t.Courses)
-                .Map(m =>
-                //here m is the many to many navigation property
-                {
-                    m.ToTable("CourseTags");
-                    m.MapLeftKey("CourseId");
-                    //our left is course because we started with Course
-                    m.MapRightKey("TagId");
-                });
-
-            modelBuilder
-                .Entity<Course>()
-                .HasRequired(c => c.Cover)
-                .WithRequiredPrincipal(c => c.Course);
-
-
+            modelBuilder.Configurations.Add(new CourseConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
