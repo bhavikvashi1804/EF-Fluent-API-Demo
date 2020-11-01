@@ -17,7 +17,7 @@ namespace FluentAPI.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Courses",
+                "dbo.tbl_Course",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -38,7 +38,7 @@ namespace FluentAPI.Migrations
                         Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Courses", t => t.Id)
+                .ForeignKey("dbo.tbl_Course", t => t.Id)
                 .Index(t => t.Id);
             
             CreateTable(
@@ -58,7 +58,7 @@ namespace FluentAPI.Migrations
                         TagId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.CourseId, t.TagId })
-                .ForeignKey("dbo.Courses", t => t.CourseId, cascadeDelete: true)
+                .ForeignKey("dbo.tbl_Course", t => t.CourseId, cascadeDelete: true)
                 .ForeignKey("dbo.Tags", t => t.TagId, cascadeDelete: true)
                 .Index(t => t.CourseId)
                 .Index(t => t.TagId);
@@ -68,17 +68,17 @@ namespace FluentAPI.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.CourseTags", "TagId", "dbo.Tags");
-            DropForeignKey("dbo.CourseTags", "CourseId", "dbo.Courses");
-            DropForeignKey("dbo.Covers", "Id", "dbo.Courses");
-            DropForeignKey("dbo.Courses", "AuthorID", "dbo.Authors");
+            DropForeignKey("dbo.CourseTags", "CourseId", "dbo.tbl_Course");
+            DropForeignKey("dbo.Covers", "Id", "dbo.tbl_Course");
+            DropForeignKey("dbo.tbl_Course", "AuthorID", "dbo.Authors");
             DropIndex("dbo.CourseTags", new[] { "TagId" });
             DropIndex("dbo.CourseTags", new[] { "CourseId" });
             DropIndex("dbo.Covers", new[] { "Id" });
-            DropIndex("dbo.Courses", new[] { "AuthorID" });
+            DropIndex("dbo.tbl_Course", new[] { "AuthorID" });
             DropTable("dbo.CourseTags");
             DropTable("dbo.Tags");
             DropTable("dbo.Covers");
-            DropTable("dbo.Courses");
+            DropTable("dbo.tbl_Course");
             DropTable("dbo.Authors");
         }
     }
