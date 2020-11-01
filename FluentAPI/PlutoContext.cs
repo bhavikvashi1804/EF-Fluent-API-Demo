@@ -37,6 +37,12 @@ namespace DataAnnotations
                 .HasForeignKey(c=>c.AuthorID)
                 .WillCascadeOnDelete(false);
 
+            //we want our own name in Intermediatory class
+            modelBuilder
+                .Entity<Course>()
+                .HasMany(c => c.Tags)
+                .WithMany(t => t.Courses)
+                .Map(m => m.ToTable("CourseTags"));
 
 
             base.OnModelCreating(modelBuilder);
